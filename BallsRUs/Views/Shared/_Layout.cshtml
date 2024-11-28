@@ -1,0 +1,206 @@
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment webHostEnvironment
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Balls R Us</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/BallsRUs.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/lib/jquery/dist/jquery.js" />
+    <link rel="stylesheet" href="~/js/site.js" asp-append-version="true" />
+    @if (webHostEnvironment.EnvironmentName == "Development")
+    {
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/fonts.css" asp-append-version="true" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/_styles.ballsrus.bundle.min.css" asp-append-version="true" />
+    }
+</head>
+<body>
+    <header>
+        <div id="header-bar-container" class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4 col-sm-3">
+                        <div id="header-bar-logo-container-left" class="d-none d-sm-block">
+                            <a asp-area="" asp-controller="Home" asp-action="Index"><img class="header-logo" title="Accueil" src="~/img/logo_no_background_white.png" /></a>
+                        </div>
+                        <div id="header-icons-container-left" class="row d-flex d-sm-none">
+                            <img id="header-hamburger-menu-icon" src="~/img/menuhamburger.png" />
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-6">
+                        <form id="header-search-bar-container" asp-controller="Product" asp-action="Catalog" method="get" class="d-none d-sm-flex">
+                            <div id="header-search-bar">
+                                <input id="header-search-bar-text" type="text" name="search" placeholder="Rechercher..." />
+                                <button id="header-search-bar-button" type="submit">
+                                    <img src="~/img/recherche.svg" />
+                                </button>
+                            </div>
+                        </form>
+                        <div id="header-bar-logo-container-center" class="d-flex d-sm-none">
+                            <a asp-area="" asp-controller="Home" asp-action="Index"><img class="header-logo" title="Accueil" src="~/img/logo_no_background_white.png" /></a>
+                        </div>
+                    </div>
+                    <div id="header-icons-container-right" class="d-flex row col-4 col-sm-3">
+                        @if (User?.Identity?.IsAuthenticated ?? false)
+                        {
+                            <form asp-action="LogOut" asp-controller="Account" id="header-logout-form" method="post">
+                                <button type="submit" id="header-icons-logout-button">
+                                    <img class="header-icon" src="~/img/logout.svg" />
+                                </button>
+                            </form>
+                            <a class="header-icon-link" asp-controller="Account" asp-action="Details"><img class="header-icon" src="~/img/user.svg" /></a>
+                            <a class="header-icon-link" asp-controller="ShoppingCart" asp-action="Index"><img class="header-icon" src="~/img/shopping-cart.svg" /></a>
+                        }
+                        else
+                        {
+                            <a class="header-icon-link" asp-controller="Account" asp-action="LogIn"><img class="header-icon" src="~/img/user.svg" /></a>
+                            <a class="header-icon-link" asp-controller="ShoppingCart" asp-action="Index"><img class="header-icon" src="~/img/shopping-cart.svg" /></a>
+                        }
+                    </div>
+                    <div id="header-hamburger-menu-container" class="col-12">
+                        <ul id="header-hamburger-menu-list">
+                            <li>
+                                <a class="header-hamburger-menu-list-element nav-link text-dark" asp-controller="Product" asp-action="Catalog" asp-route-category="bâtons">BÂTONS</a>
+                            </li>
+                            <li>
+                                <a class="header-hamburger-menu-list-element nav-link text-dark" asp-controller="Product" asp-action="Catalog" asp-route-category="vêtements">VÊTEMENTS</a>
+                            </li>
+                            <li>
+                                <a class="header-hamburger-menu-list-element nav-link text-dark" asp-controller="Product" asp-action="Catalog" asp-route-category="sacs">SACS</a>
+                            </li>
+                            <li>
+                                <a class="header-hamburger-menu-list-element nav-link text-dark" asp-controller="Product" asp-action="Catalog" asp-route-category="balles">BALLES</a>
+                            </li>
+                            <li>
+                                <a class="header-hamburger-menu-list-element nav-link text-dark" asp-controller="Product" asp-action="Catalog" asp-route-category="accessoires">ACCESSOIRES</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-0 border-bottom">
+            <div class="col-12 p-0">
+                <nav class="d-none d-sm-flex navbar navbar-expand-sm bg-white">
+                    <div id="navbar-container">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Product" asp-action="Catalog" asp-route-category="bâtons">BÂTONS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Product" asp-action="Catalog" asp-route-category="vêtements">VÊTEMENTS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Product" asp-action="Catalog" asp-route-category="sacs">SACS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Product" asp-action="Catalog" asp-route-category="balles">BALLES</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Product" asp-action="Catalog" asp-route-category="accessoires">ACCESSOIRES</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <form id="header-navbar-search-bar-container" asp-controller="Product" asp-action="Catalog" method="get" class="d-block d-sm-none bg-white">
+                    <div id="header-navbar-search-bar">
+                        <input id="header-navbar-search-bar-text" type="text" name="search" placeholder="Rechercher..." />
+                        <button id="header-navbar-search-bar-button" type="submit">
+                            <img src="~/img/recherche.svg" />
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @if (User!.IsInRole("Administrateur"))
+        {
+            <div id="header-admin-bar-container">
+                <a class="header-admin-bar-link nav-link text-dark" asp-controller="Admin" asp-action="Index">
+                    <span>SYSTÈME DE GESTION DE CONTENU</span>
+                </a>
+            </div>
+        }
+    </header>
+    @if (ViewData["Title"] is not null && ViewData["Title"]!.ToString() == "Accueil")
+    {
+        <div id="homepage-slogan-image">
+            <span id="homepage-slogan-text">
+                Bienvenue sur le premier site 100% québécois de vente d'équipements de golf. <br />
+                Swingez vers la perfection, un clic à la fois!
+            </span>
+        </div>
+    }
+    <div class="container p-0">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="footer text-muted" style="padding-top:30px;">
+        <div class="border-top" style="background-color: #f5f5f5">
+            <div class="container">
+                <div id="footer-sections-container" class="row pb-4">
+                    <div class="footer-sections-column row col-lg-3 col-sm-6 col-11">
+                        <h5 class="footer-sections-title col-12">À PROPOS DE NOUS</h5>
+                        <span class="footer-sections-element col-12"><a class="footer-link" asp-controller="Home" asp-action="About">À propos</a></span>
+                        <span class="footer-sections-element col-12"><a class="footer-link" asp-controller="Home" asp-action="Privacy">Politiques de confidentialité</a></span>
+                    </div>
+                    <div class="footer-sections-column row col-lg-3 col-sm-6 col-11">
+                        <h5 class="footer-sections-title col-12">ESPACE CLIENT</h5>
+                        <span class="footer-sections-element col-12"><a class="footer-link" asp-controller="Home" asp-action="Privacy">Échange et remboursement</a></span>
+                        <span class="footer-sections-element col-12"><a class="footer-link" asp-controller="Home" asp-action="Index" asp-fragment="homepage-newsletter-container">Nous contacter</a></span>
+                    </div>
+                    <div class="footer-sections-column row col-lg-3 col-sm-6 col-11">
+                        <h5 class="footer-sections-title col-12">SERVICES</h5>
+                        <span class="footer-sections-element col-12"><a class="footer-link" asp-controller="Home" asp-action="About" asp-fragment="about-coord-container">Localisateur de magasin</a></span>
+                        <span class="footer-sections-element col-12"><a class="footer-link" asp-controller="Home" asp-action="Privacy">Promotions</a></span>
+                    </div>
+                    <div class="footer-sections-column row col-lg-3 col-sm-6 col-11">
+                        <h5 class="footer-sections-title col-12">RESTEZ CONNECTÉ</h5>
+                        <span class="footer-sections-element col-12"><a class="footer-link" asp-controller="Home" asp-action="Privacy">Blogue</a></span>
+                        <span class="footer-sections-element col-12"><a class="footer-link" asp-controller="Home" asp-action="Privacy">Événements</a></span>
+                    </div>
+                </div>
+            </div>
+            <div id="footer-copyright-container" class="border-top">
+                <span id="footer-copyright-text">
+                    &copy; 2023 Balls R Us Ltd. Tous droits réservés.
+                </span>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        $(window).on('resize', function () {
+            const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+            if (width >= 576) {
+                $('#header-hamburger-menu-container').hide();
+            }
+        });
+
+        $('#header-hamburger-menu-icon').click(function () {
+            $('#header-hamburger-menu-container').toggle();
+        });
+    });
+</script>

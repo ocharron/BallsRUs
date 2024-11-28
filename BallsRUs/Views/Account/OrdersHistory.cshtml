@@ -1,0 +1,53 @@
+﻿@using BallsRUs.Entities
+@using BallsRUs.Models.Account
+@model IEnumerable<AccountOrderHistoryVM>
+
+@{
+    ViewData["Title"] = "Liste des commandes";
+}
+<h3 id="account-orders-history-title">Historique de vos commandes</h3>
+<div id="account-orders-history-back-button-container">
+    <a id="account-orders-history-back-button" asp-controller="Account" asp-action="Details">
+        <span id="account-orders-history-back-button-text">Retour</span>
+    </a>
+</div>
+<div id="account-orders-history-container">
+    @if (Model.Count() > 0)
+    {
+        <table id="account-order-history-table" class="table">
+            <thead>
+                <tr>
+                    <th>Commande #</th>
+                    <th>Date d'achat</th>
+                    <th>Nom</th>
+                    <th>Total</th>
+                    <th>Nombre d'articles</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AccountOrderHistoryVM order in Model)
+                {
+                    <tr>
+                        <td>@order.Number</td>
+                        <td>@order.CreationDate</td>
+                        <td>@order.FullName</td>
+                        <td>@order.Total</td>
+                        <td>@order.ProductQuantity</td>
+                        <td>@order.Status</td>
+                        <td>
+                            <a class="account-orders-history-details-button" asp-controller="Order" asp-action="Details" asp-route-orderId="@order.Id">
+                                <span class="account-orders-history-details-button-text">Détails</span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p id="account-order-history-no-order">Vous n'avez aucune commande</p>
+    }
+</div>

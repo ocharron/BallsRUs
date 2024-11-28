@@ -1,0 +1,37 @@
+﻿@using BallsRUs.Entities
+
+@model IEnumerable<Product>
+
+<div class="row m-0 w-100 align-content-center justify-content-center">
+    @foreach (Product product in Model)
+    {
+        <div class="vc-product-list-product-container col-6 col-lg-4 @if(ViewBag.IsHomepageShowcase){@Html.Raw("col-xl-3")}">
+            <div id="vc-product-list-product-card-@Html.Raw(product.SKU)" class="vc-product-list-product-card">
+                <a class="vc-product-list-product-link" asp-controller="Product" asp-action="Details" asp-route-productId="@product.Id">
+                    <img class="vc-product-list-product-image" src="@Url.Content(product.ImagePath)" alt="@Html.Raw(product.Brand) @Html.Raw(product.Model)" />
+                    <div>
+                        <p>@product.Brand</p>
+                        <h6>@product.Name</h6>
+                        @if (product.DiscountedPrice is not null)
+                        {
+                            <p>
+                                <span class="vc-product-list-product-beaten-price">@product.RetailPrice$</span>
+                                <span>@product.DiscountedPrice$</span>
+                            </p>
+                        }
+                        else
+                        {
+                            <p>@product.RetailPrice$</p>
+                        }
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.MessageBasDePage))
+    {
+        <div class="col-12 d-flex">
+            <p id="vc-product-list-bottom-message">@ViewBag.MessageBasDePage</p>
+        </div>
+    }
+</div>

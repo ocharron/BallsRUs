@@ -1,0 +1,279 @@
+﻿@using Microsoft.Extensions.Options
+@using BallsRUs.Models.Checkout
+@using BallsRUs.Utilities
+
+@model CheckoutPaymentVM
+
+@inject IOptions<StripeOptions> StripeOptions;
+
+@{
+    ViewData["Title"] = "Paiement de votre commande";
+}
+
+<div id="checkout-payment-container">
+    @if (!ViewBag.IsPayed)
+    {
+        <h3 id="checkout-payment-title">Informations de paiement</h3>
+        <form id="checkout-payment-form">
+            <div class="mb-4">
+                <label for="name" class="form-label checkout-payment-form-label">Nom</label>
+                <input asp-for="FullName" type="text" class="form-control" id="checkout-payment-name-input" placeholder="Nom complet" />
+                <div id="checkout-payment-name-input-validation" role="alert" class="text-danger"></div>
+            </div>
+            <div class="mb-4">
+                <label for="phone" class="form-label checkout-payment-form-label">Numéro de téléphone</label>
+                <input asp-for="PhoneNumber" type="text" class="form-control" id="checkout-payment-phone-input" placeholder="Téléphone" />
+                <div id="checkout-payment-phone-input-validation" role="alert" class="text-danger"></div>
+            </div>
+            <div class="mb-4">
+                <label for="phone" class="form-label checkout-payment-form-label">Courriel</label>
+                <input asp-for="EmailAddress" type="text" class="form-control" id="checkout-payment-email-input" placeholder="Courriel" />
+                <div id="checkout-payment-email-input-validation" role="alert" class="text-danger"></div>
+            </div>
+            <div class="mb-4">
+                <label for="credit-card" class="form-label checkout-payment-form-label">Information de la carte</label>
+                <div type="text" class="form-control" id="checkout-payment-credit-card-input" placeholder="Numéro de la carte"></div>
+                <div id="checkout-payment-card-errors" role="alert" class="text-danger"></div>
+            </div>
+            <div id="checkout-payment-address-container" class="row">
+                <h4 id="checkout-payment-address-title">Adresse de facturation</h4>
+                <div class="mb-4 col-12">
+                    <label for="street" class="form-label checkout-payment-form-label">Rue</label>
+                    <input asp-for="AddressStreet" type="text" class="form-control" id="checkout-payment-street-input" placeholder="Rue" />
+                    <div id="checkout-payment-street-input-validation" role="alert" class="text-danger"></div>
+                </div>
+                <div class="mb-4 col-6">
+                    <label for="city" class="form-label checkout-payment-form-label">Ville</label>
+                    <input asp-for="AddressCity" type="text" class="form-control" id="checkout-payment-city-input" placeholder="Ville" />
+                    <div id="checkout-payment-city-input-validation" role="alert" class="text-danger"></div>
+                </div>
+                <div class="mb-4 col-6">
+                    <label for="postal-code" class="form-label checkout-payment-form-label">Code postal</label>
+                    <input asp-for="AddressPostalCode" type="text" class="form-control" id="checkout-payment-postal-code-input" placeholder="Code postal (ex: A1A 1A1)" />
+                    <div id="checkout-payment-postal-code-input-validation" role="alert" class="text-danger"></div>
+                </div>
+                <div class="mb-4 col-12">
+                    <label for="country" class="form-label checkout-payment-form-label">Pays</label>
+                    <input asp-for="AddressCountry" type="text" class="form-control" id="checkout-payment-country-input" placeholder="Pays" />
+                    <div id="checkout-payment-country-input-validation" role="alert" class="text-danger"></div>
+                </div>
+                <div class="mb-4 col-12">
+                    <label for="street" class="form-label checkout-payment-form-label">Province/État</label>
+                    <input asp-for="AddressStateProvince" type="text" class="form-control" id="checkout-payment-state-province-input" placeholder="Province/État" />
+                    <div id="checkout-payment-country-input-validation" role="alert" class="text-danger"></div>
+                </div>
+            </div>
+            <div class="form-check ml-3 mb-3">
+                <input type="checkbox" class="form-check-input" id="checkout-payment-terms-checkbox" />
+                <label class="form-check-label" for="terms" style="font-family: 'Poppins'">J'accepte les <a href="#" id="checkout-payment-tos-link">termes et conditions</a></label>
+                <div id="checkout-payment-terms-checkbox-validation" role="alert" class="text-danger"></div>
+            </div>
+            <button type="submit" id="checkout-payment-submit-button">Payer</button>
+        </form>
+    }
+    else
+    {
+        <div id="checkout-payment-already-confirmed-container">
+            <h3 id="checkout-payment-title">Aucune commande à confirmer</h3>
+            <h5 id="checkout-payment-instructions-text">La commande que vous voulez atteindre est déjà confirmée.</h5>
+        </div>
+    }
+</div>
+
+@if (!ViewBag.IsPayed)
+{
+    @section Scripts {
+        <script src="https://js.stripe.com/v3/"></script>
+        <script src="~/lib/axios/axios.min.js"></script>
+        <script>
+            $(document).ready(() => {
+                "use strict";
+    
+                // Initialisation des éléments HTML et de Stripe
+                const cardErrors = $("#checkout-payment-card-errors");
+                const paymentForm = $("#checkout-payment-form");
+                const nameInput = $("#checkout-payment-name-input");
+                const phoneInput = $("#checkout-payment-phone-input");
+                const emailInput = $("#checkout-payment-email-input");
+                const countryInput = $("#checkout-payment-country-input");
+                const postalCodeInput = $("#checkout-payment-postal-code-input");
+                const streetInput = $("#checkout-payment-street-input");
+                const cityInput = $("#checkout-payment-city-input");
+                const stateProvinceInput = $("#checkout-payment-state-province-input");
+                const termsCheckbox = $("#checkout-payment-terms-checkbox");
+    
+                const stripe = Stripe("@StripeOptions.Value.PublicKey");
+                const elements = stripe.elements();
+    
+                // Fonction pour initialiser la carte Stripe
+                const initializeCard = (elements) => {
+                    const cardOptions = { hidePostalCode: true };
+                    const card = elements.create("card", cardOptions);
+                    card.mount("#checkout-payment-credit-card-input");
+                    return card;
+                };
+    
+                const card = initializeCard(elements);
+    
+                // Validations des entrées
+                const showError = (input, message) => {
+                    const validationDiv = $(`#${input.attr("id")}-validation`);
+                    validationDiv.text(message);
+                    validationDiv.show();
+                };
+    
+                const hideError = (input) => {
+                    const validationDiv = $(`#${input.attr("id")}-validation`);
+                    validationDiv.text("");
+                    validationDiv.hide();
+                };
+    
+                const validateName = () => {
+                    const name = nameInput.val().trim();
+                    if (name === "") {
+                        showError(nameInput, "Le nom ne peut pas être vide.");
+                        return false;
+                    }
+                    hideError(nameInput);
+                    return true;
+                };
+    
+                const validateEmail = () => {
+                    const email = emailInput.val().trim();
+                    var emailRegex = /^[a-zA-Z0-9]([\w\-\.\+\']*)@@([\w\-\.]*)(\.[a-zA-Z]{2,20}(\.[a-zA-Z]{2}){0,2})$/;
+    
+                    if (!emailRegex.test(email)) {
+                        showError(emailInput, "Veuillez entrer une adresse courriel valide.");
+                        return false;
+                    }
+    
+                    hideError(emailInput);
+                    return true;
+                };
+    
+                const validatePhone = () => {
+                    const phone = phoneInput.val().trim();
+                    if (!/^\d+$/.test(phone)) {
+                        showError(phoneInput, "Le numéro de téléphone doit contenir uniquement des chiffres.");
+                        return false;
+                    }
+                    hideError(phoneInput);
+                    return true;
+                };
+    
+                const validateNotEmpty = (input, fieldName) => {
+                    const value = input.val().trim();
+                    if (value === "") {
+                        showError(input, `Le champ ${fieldName} ne peut pas être vide.`);
+                        return false;
+                    }
+                    hideError(input);
+                    return true;
+                };
+    
+                const validatePostalCode = () => {
+                    const postalCode = postalCodeInput.val().trim().toUpperCase();
+                    if (!/^[A-Z]\d[A-Z] \d[A-Z]\d$|^[A-Z]\d[A-Z]\d[A-Z]\d$/.test(postalCode)) {
+                        showError(postalCodeInput, "Le code postal doit avoir le format A1A1A1 ou A1A 1A1.");
+                        return false;
+                    }
+                    hideError(postalCodeInput);
+                    return true;
+                };
+    
+                const validateCheckbox = () => {
+                    if (!termsCheckbox.prop("checked")) {
+                        showError(termsCheckbox, "Veuillez accepter les termes et conditions.");
+                        return false;
+                    }
+                    hideError(termsCheckbox);
+                    return true;
+                };
+    
+                const validateForm = () => {
+                    return validateName() && validatePhone() && validateEmail() &&
+                        validateNotEmpty(streetInput, "Rue") &&
+                        validateNotEmpty(countryInput, "Pays") &&
+                        validateNotEmpty(cityInput, "Ville") &&
+                        validateNotEmpty(stateProvinceInput, "Province/État") &&
+                        validatePostalCode() &&
+                        validateCheckbox();
+                };
+    
+                // Gestion des événements
+                card.on("change", event => handleCardChange(event));
+                nameInput.on("input", validateName);
+                emailInput.on("input", validateEmail);
+                phoneInput.on("input", validatePhone);
+                streetInput.on("input", () => validateNotEmpty(streetInput, "Rue"));
+                countryInput.on("input", () => validateNotEmpty(countryInput, "Pays"));
+                cityInput.on("input", () => validateNotEmpty(cityInput, "Ville"));
+                stateProvinceInput.on("input", () => validateNotEmpty(stateProvinceInput, "Province/État"));
+                postalCodeInput.on("input", validatePostalCode);
+                termsCheckbox.on("change", validateCheckbox);
+                paymentForm.on("submit", event => handleFormSubmit(event));
+    
+                // Gestion des changements et des erreurs de la carte
+                const handleCardChange = (event) => {
+                    cardErrors.text(event.error ? event.error.message : "");
+                };
+    
+                // Gestion de la soumission du formulaire
+                const handleFormSubmit = async (event) => {
+                    event.preventDefault();
+                    try {
+                        if (!validateForm()) {
+                            return;
+                        }
+    
+                        const tokenResult = await stripe.createToken(card, {
+                            name: nameInput.val(),
+                            email: emailInput.val(),
+                            phone: "+1" + phoneInput.val(),
+                            address_country: countryInput.val(),
+                            address_zip: postalCodeInput.val(),
+                            address_city: cityInput.val(),
+                            address_line1: streetInput.val(),
+                            address_state: stateProvinceInput.val(),
+                        });
+    
+                        if (tokenResult.error) {
+                            cardErrors.text(tokenResult.error.message);
+                            return;
+                        }
+                        await processPayment(tokenResult.token);
+    
+                    } catch (error) {
+                        console.error("Error in form submission: ", error);
+                    }
+                };
+    
+                // Fonction pour traiter le paiement
+                const processPayment = async (token) => {
+                    try {
+                        const paymentData = {
+                            Name: nameInput.val(),
+                            Email: emailInput.val(),
+                            Phone: "+1" + phoneInput.val(),
+                            Street: streetInput.val(),
+                            Country: countryInput.val(),
+                            City: cityInput.val(),
+                            PostalCode: postalCodeInput.val(),
+                            StateProvince: stateProvinceInput.val(),
+                            Digits: token.card.last4,
+                            Token: token.id
+                        };
+    
+                        const response = await axios.post("/Checkout/Charge?orderId=@Model.Id", paymentData);
+    
+                        console.log("Payment Success:", response);
+                        window.location.href = "/Checkout/Receipt?orderId=@Model.Id";
+    
+                    } catch (error) {
+                        console.error("Payment processing error:", error);
+                    }
+                }
+            });
+        </script>
+    }
+}

@@ -1,0 +1,186 @@
+﻿@using BallsRUs.Models.Admin
+
+@model IEnumerable<AdminManageProductVM>
+
+@{
+    ViewData["Title"] = "ADMIN: Produits";
+}
+
+<h1 class="mt-5" style="width: fit-content;">Liste des produits</h1>
+
+<div>
+    @Html.ActionLink("Retour", "Index", new { }, new { @class = "btn btn-secondary my-3" })
+    @Html.ActionLink("Ajouter", "CreateProduct", new { }, new { @class = "btn btn-success my-3" })
+</div>
+
+<table class="table" style="font-size: 12px;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SKU)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeightInGrams)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RetailPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountedPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublicationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastUpdated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SKU)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Image)
+                </td>
+                @if (item.WeightInGrams is not null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WeightInGrams)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <span>N/A</span>
+                    </td>
+                }
+                @if (item.Size is not null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Size)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <span>N/A</span>
+                    </td>
+                }
+                @if (item.Quantity > 5)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                }
+                else
+                {
+                    <td style="color: red;">
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.RetailPrice)
+                </td>
+                @if (!string.IsNullOrWhiteSpace(item.DiscountedPrice))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountedPrice)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <span>N/A</span>
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublicationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastUpdated)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "DetailsProduct", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @if (item.IsArchived)
+                    {
+                        @Html.ActionLink("Désarchiver", "ArchiveProduct", new { id = item.Id }, new { @class = "btn btn-secondary" })
+                        @Html.ActionLink("Supprimer", "DeleteProduct", new { id = item.Id }, new { @class = "btn btn-danger admin-manage-product-delete-button" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Archiver", "ArchiveProduct", new { id = item.Id }, new { @class = "btn btn-danger admin-manage-product-archive-button" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('.admin-manage-product-archive-button').click(function (event) {
+                const message = `Êtes-vous sûr de vouloir archiver ce produit?`;
+
+                if (!confirm(message)) {
+                    event.stopPropagation();
+                    return false;
+                }
+            });
+        });
+        $(function () {
+            $('.admin-manage-product-delete-button').click(function (event) {
+                const message = `Êtes-vous sûr de vouloir supprimer ce produit? Cette action est irréversible.`;
+
+                if (!confirm(message)) {
+                    event.stopPropagation();
+                    return false;
+                }
+            });
+        });
+    </script>
+}

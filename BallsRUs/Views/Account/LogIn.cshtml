@@ -1,0 +1,50 @@
+﻿@model BallsRUs.Models.Account.LogInVM
+
+@{
+    ViewData["Title"] = "LogIn";
+}
+
+<div class="text-center">
+    <div class="account-login-container col-md-8">
+        <h1 id="account-login-title">Connectez-vous à votre compte</h1>
+        <div class="row" style="margin-top:60px">
+            <div class="col-lg-6">
+                <form asp-action="LogIn" class="account-login-signin-form">
+                    <div class="col-12">
+                        <h4>Clients récurrents</h4>
+                        <p style="text-align:left">
+                            Si vous êtes un utilisateur enregistré, saisissez votre
+                            adresse courriel et votre mot de passe.
+                        </p>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">                    
+                            <input asp-for="NomUtilisateur" class="form-control" placeholder="Courriel"/>
+                            <span asp-validation-for="NomUtilisateur" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="MotDePasse" class="form-control" placeholder="Mot de passe"/>
+                            <span asp-validation-for="MotDePasse" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-4 mb-1 text-start">
+                            <input type="submit" value="Se connecter" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <h4>Nouveaux clients</h4>
+                <p style="text-align:left">
+                    Créer un compte est très simple. Remplissez simplement le formulaire ci-dessous
+                    et profitez des avantages réservés aux utilisateurs enregistrés.
+                </p>
+                <a id="account-login-register-button" asp-area="" asp-controller="Account" asp-action="Register">Créer un compte</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

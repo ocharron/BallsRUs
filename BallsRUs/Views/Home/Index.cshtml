@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Accueil";
+}
+
+<div class="w-100 justify-content-center">
+    <h3 id="homepage-produits-vedettes-title">Nos produits en vedette</h3>
+</div>
+<vc:product-list is-homepage-showcase="true"></vc:product-list>
+<div id="homepage-produits-vedettes-button-container">
+    <a id="homepage-produits-vedettes-button" class="" asp-controller="Product" asp-action="Catalog"><span class="m-auto">Voir catalogue complet</span></a>
+</div>
+<div id="homepage-newsletter-container" class="homepage-section text-center">
+    <div id="homepage-newsletter-form" class="col-lg-6 col-md-8 col-sm-10">
+        <label id="homepage-newsletter-header">Nous contacter</label>
+        <form name="contactForm" action="mailto:info@ballsrus.ca" method="get" onsubmit="return validateContactFormSubmit()">
+            <div class="text-danger"></div>
+            <div class="homepage-newsletter-form-item form-group my-3 text-start">
+                <label class="mb-1">Nom</label>
+                <input type="text" name="subject" id="homepage-newsletter-form-name" placeholder="Votre nom" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="homepage-newsletter-form-item form-group my-3 text-start">
+                <label class="mb-1">Courriel</label>
+                <input type="text" name="email" id="homepage-newsletter-form-email" placeholder="votre@courriel.com" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="homepage-newsletter-form-item form-group my-3 text-start">
+                <label class="mb-1">Description</label>
+                <textarea id="homepage-newsletter-form-description" name="body" placeholder="Description de la demande"></textarea>
+                <span class="text-danger" style="width: 10px;"></span>
+            </div>
+            <div class="homepage-newsletter-form-item form-group mt-4 mb-1 text-start">
+                <input type="submit" value="Envoyer" />
+            </div>
+        </form>
+    </div>
+</div>
+<div id="homepage-partners-title-container">
+    <h3 id="homepage-partners-title">
+        Nos partenaires d'exception
+    </h3>
+</div>
+
+<div class="homepage-carousel-partners">
+    <div id="homepage-carousel-partners-left-arrow">
+        <button class="arrow prev"><i class="ri-arrow-left-s-line"></i></button>
+    </div>
+    <div id="homepage-carousel-partners-right-arrow">
+        <button class="arrow next"><i class="ri-arrow-right-s-line"></i></button>
+    </div>
+
+    <div class="homepage-carousel-partners-cardwrapper">
+        <div class="homepage-carousel-partners-card-item">
+            <img class="img-fluid mx-auto d-block" src="~/img/partners/wilson.png" alt="slide 1">
+        </div>
+        <div class="homepage-carousel-partners-card-item">
+            <img class="img-fluid mx-auto d-block" src="~/img/partners/adidas.jpg" alt="slide 2">
+        </div>
+        <div class="homepage-carousel-partners-card-item">
+            <img class="img-fluid mx-auto d-block" src="~/img/partners/clubGolfSteMadeleine.jpg" alt="slide 3">
+        </div>
+        <div class="homepage-carousel-partners-card-item">
+            <img class="img-fluid mx-auto d-block" src="~/img/partners/clubGolfBeloeil.jpg" alt="slide 4">
+        </div>
+        <div class="homepage-carousel-partners-card-item">
+            <img class="img-fluid mx-auto d-block" src="~/img/partners/clubGolfStHyacinthe.png" style="background-color:green" alt="slide 5">
+        </div>
+        <div class="homepage-carousel-partners-card-item">
+            <img class="img-fluid mx-auto d-block" src="~/img/partners/puma.jpg" alt="slide 6">
+        </div>
+        <div class="homepage-carousel-partners-card-item">
+            <img class="img-fluid mx-auto d-block" src="~/img/partners/sportExpert.jpg" alt="slide 7">
+        </div>
+        <div class="homepage-carousel-partners-card-item">
+            <img class="img-fluid mx-auto d-block" src="~/img/partners/golfQuebec.jpg" alt="slide 8">
+        </div>
+        <div class="homepage-carousel-partners-card-item">
+            <img class="img-fluid mx-auto d-block" src="~/img/partners/underArmour.jpg" alt="slide 9">
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        <script src="~/js/contactFormValidation.js"></script>
+        <script src="~/js/carouselPartnersHomepage.js"></script>
+
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

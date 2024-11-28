@@ -1,0 +1,53 @@
+﻿@using BallsRUs.Models.Account
+
+@model AccountAddressVM
+
+@{
+    ViewData["Title"] = "Adresse du compte";
+}
+
+<div id="account-address-container">
+    @if (!Model.HasExistingAddress)
+    {
+        <h3 id="account-address-title">Ajouter une adresse</h3>
+    }
+    else
+    {
+        <h3 id="account-address-title">Modifier une adresse</h3>
+    }
+    <form asp-controller="Account" asp-action="Address" id="account-address-form">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group mb-4">
+            <label asp-for="Street" class="account-address-form-label required"></label>
+            <input asp-for="Street" class="form-control" placeholder="Rue et numéro civique" />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-4">
+            <label asp-for="City" class="account-address-form-label required"></label>
+            <input asp-for="City" class="form-control" placeholder="Ville" />
+            <span asp-validation-for="City" class=" text-danger"></span>
+        </div>
+        <div class="form-group mb-4">
+            <label asp-for="StateProvince" class="account-address-form-label required"></label>
+            <input asp-for="StateProvince" class="form-control" placeholder="Province" />
+            <span asp-validation-for="StateProvince" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-4">
+            <label asp-for="Country " class="account-address-form-label required"></label>
+            <input asp-for="Country" class="form-control" placeholder="Pays" />
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-4">
+            <label asp-for="PostalCode" class="account-address-form-label required"></label>
+            <input asp-for="PostalCode" class="form-control" placeholder="Code postal" />
+            <span asp-validation-for="PostalCode" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-5 mb-0 text-start">
+            <input class="mt-3" type="submit" value="Sauvegarder" />
+        </div>
+        @Html.HiddenFor(model => model.HasExistingAddress)
+    </form>
+    <div id="account-address-cancel-button-container">
+        <a id="account-address-cancel-button" asp-controller="Account" asp-action="Details"><span>Annuler</span></a>
+    </div>
+</div>

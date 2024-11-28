@@ -1,0 +1,124 @@
+﻿@using BallsRUs.Models.Checkout
+
+@model CheckoutInformationVM
+
+@{
+    ViewData["Title"] = "Information de la commande";
+}
+
+<div id="checkout-information-container">
+    <h3 id="checkout-information-title">Informations de la commande</h3>
+    <form asp-controller="Checkout" asp-action="Information" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div id="checkout-information-user-info-container">
+            <div class="form-group">
+                <label asp-for="FirstName" class="fw-bold control-label required"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="fw-bold control-label required"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="fw-bold control-label required"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="fw-bold control-label required"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div id="checkout-information-address-container">
+            <div class="form-group">
+                <label asp-for="AddressStreet" class="fw-bold control-label required"></label>
+                <input asp-for="AddressStreet" class="form-control" />
+                <span asp-validation-for="AddressStreet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressCity" class="fw-bold control-label required"></label>
+                <input asp-for="AddressCity" class="form-control" />
+                <span asp-validation-for="AddressCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressStateProvince" class="fw-bold control-label required"></label>
+                <input asp-for="AddressStateProvince" class="form-control" />
+                <span asp-validation-for="AddressStateProvince" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressCountry" class="fw-bold control-label required"></label>
+                <input asp-for="AddressCountry" class="form-control" />
+                <span asp-validation-for="AddressCountry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddressPostalCode" class="fw-bold control-label required"></label>
+                <input asp-for="AddressPostalCode" class="form-control" />
+                <span asp-validation-for="AddressPostalCode" class="text-danger"></span>
+            </div>
+            @if (User!.Identity!.IsAuthenticated)
+            {
+                @Html.HiddenFor(vm => vm.HasExistingAddress)
+            }
+        </div>
+        @if (User!.Identity!.IsAuthenticated && Model.HasExistingAddress)
+        {
+            <div id="checkout-information-existing-address-container">
+                <div id="checkout-information-existing-address-info">
+                    <p>@Model.AddressStreet</p>
+                    <p>@Model.AddressCity, @Model.AddressStateProvince (@Model.AddressCountry)</p>
+                    <p class="m-0">@Model.AddressPostalCode</p>
+                </div>
+                <div class="mb-4">
+                    <input id="checkout-information-use-existing-address-checkbox" type="checkbox" asp-for="UseExistingAddress" class="checkout-information-checkbox"> Utiliser l'addresse existante
+                </div>
+            </div>
+        }
+        else if (User!.Identity!.IsAuthenticated)
+        {
+            <div class="mb-4">
+                <input id="checkout-information-save-address-checkbox" type="checkbox" asp-for="SaveAddress" class="checkout-information-checkbox"> Sauvegarder l'adresse pour les futurs achats
+            </div>
+        }
+        <div class="mb-4">
+            <input id="checkout-information-confirm-information-checkbox" type="checkbox" asp-for="ConfirmInformation" class="checkout-information-checkbox"> Je confirme que mes informations sont exactes
+            <br />
+            <span asp-validation-for="ConfirmInformation" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-4 mb-1 text-start">
+            <input type="submit" value="Compléter la commande" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @if (User!.Identity!.IsAuthenticated && Model.HasExistingAddress)
+    {
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var useExistingAddressCheckbox = document.getElementById('checkout-information-use-existing-address-checkbox');
+                var existingAddressInfoContainer = document.getElementById('checkout-information-existing-address-info');
+
+                var addressContainer = document.getElementById('checkout-information-address-container');
+
+                function toggleAddressDisplay() {
+                    if (useExistingAddressCheckbox.checked) {
+                        existingAddressInfoContainer.style.display = 'block';
+                        addressContainer.style.display = 'none';
+                    } else {
+                        existingAddressInfoContainer.style.display = 'none';
+                        addressContainer.style.display = 'block';
+                    }
+                }
+
+                toggleAddressDisplay();
+
+                useExistingAddressCheckbox.addEventListener('change', function () {
+                    toggleAddressDisplay();
+                });
+            });
+        </script>
+    }
+}

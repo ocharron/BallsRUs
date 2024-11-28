@@ -1,0 +1,16 @@
+﻿[
+  {
+    //"sourceMap": {
+    //  "enabled": true
+    //},
+    "outputFileName": "wwwroot/css/_styles.ballsrus.bundle.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css",
+      "wwwroot/css/fonts.css"
+    ],
+    "minify": {
+      "enabled": true
+    },
+    "includeInProject": true
+  }
+]

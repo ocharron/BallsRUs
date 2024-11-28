@@ -1,0 +1,140 @@
+﻿@using BallsRUs.Models.Account;
+@using BallsRUs.Models.ShoppingCart;
+@using System.Globalization;
+
+@model ShoppingCartListVM
+
+@{
+    ViewData["Title"] = "Panier";
+
+    // Variables pour l'affichage formaté
+    string productsCost = string.Format(new CultureInfo("fr-CA"), "{0:C}", Model.ProductsCost);
+    string shippingCost = string.Format(new CultureInfo("fr-CA"), "{0:C}", Model.ShippingCost);
+    string subTotal = string.Format(new CultureInfo("fr-CA"), "{0:C}", Model.SubTotal);
+    string taxes = string.Format(new CultureInfo("fr-CA"), "{0:C}", Model.Taxes);
+}
+
+<div id="shopping-cart-index-container" class="row justify-content-center mx-0">
+    <div class="row">
+        <div id="shopping-cart-custom-validation-summary">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        </div>
+        <div id="shopping-cart-index-products-container" class="col-12 col-lg-8">
+            <div class="row">
+                <h3 class="shopping-cart-index-title col-12">Votre panier</h3>
+            </div>
+            <div class="row justify-content-center">
+                @if (Model.Items is not null && Model.Items.Count > 0)
+                {
+                    @foreach (ShoppingCartProductVM item in Model.Items)
+                    {
+                        string filterIsAvailable = !item.IsAvailable ? "filter: opacity(30%);" : "";
+
+                        <div class="shopping-cart-index-products-card row">
+                            <div class="col-3">
+                                <a asp-controller="Product" asp-action="Details" asp-route-productId="@item.ProductId">
+                                    <img id="shopping-cart-index-products-card-image" title="@Html.Raw(item.Name)" src="@Url.Content(item.ImagePath)" style="@Html.Raw(filterIsAvailable)" />
+                                </a>
+                            </div>
+                            <div class="col-9 py-3 d-grid">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <a asp-controller="Product" asp-action="Details" asp-route-productId="@item.ProductId" class="shopping-cart-index-products-card-title-link">
+                                            <h6 style="width: fit-content; @Html.Raw(filterIsAvailable)">@item.Name</h6>
+                                        </a>
+                                    </div>
+                                    <div class="col-4 justify-content-end d-flex">
+                                        @if (item.ItemTotalDiscountedPrice is not null)
+                                        {
+                                            <h6 style="@Html.Raw(filterIsAvailable)">@item.ItemTotalDiscountedPrice <span class="shopping-cart-index-products-card-price-discounted">@item.ItemTotalRetailPrice</span></h6>
+                                        }
+                                        else
+                                        {
+                                            <h6 style="@Html.Raw(filterIsAvailable)">@item.ItemTotalRetailPrice</h6>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end align-self-end">
+                                    <div class="col-9">
+                                        <a asp-controller="ShoppingCart" asp-action="RemoveProductFromCart" asp-route-itemId="@item.Id" class="shopping-cart-index-products-card-action-link">Retirer le produit</a>
+                                    </div>
+                                    <div class="col-3 justify-content-end d-flex">
+                                        <a asp-controller="ShoppingCart" asp-action="DecrementItem" asp-route-itemId="@item.Id">
+                                            <img src="~/img/moins.svg" class="shopping-cart-index-products-quantity-icon" />
+                                        </a>
+                                        <h6 class="mx-3" style="@if(!item.IsAvailable){@Html.Raw("color: #bd0b11; font-weight: bolder;")}">@item.Quantity</h6>
+                                        <a asp-controller="ShoppingCart" asp-action="IncrementItem" asp-route-itemId="@item.Id">
+                                            <img src="~/img/plus.svg" class="shopping-cart-index-products-quantity-icon" style="@Html.Raw(filterIsAvailable)" />
+                                        </a>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="shopping-cart-index-empty-text">
+                        Le panier est vide. Vous pouvez consulter les produits dans le <a asp-controller="Product" asp-action="Catalog">catalogue</a>.
+                    </p>
+                }
+            </div>
+        </div>
+        <div id="shopping-cart-index-summary-container" class="col-12 col-lg-4 mb-0 mb-lg-5">
+            <h3 class="shopping-cart-index-title">Sommaire</h3>
+            <div id="shopping-cart-index-summary-card" class="justify-content-center mb-0 mb-lg-5">
+                <div class="row mx-0 mb-2">
+                    <div class="col-6"><span>Total des produits</span></div>
+                    <div class="col-6 justify-content-end d-flex"><span>@productsCost</span></div>
+                </div>
+                <div class="row mx-0 mb-2">
+                    <div class="col-8"><span>Coût de livraison (estimé)</span></div>
+                    <div class="col-4 justify-content-end d-flex"><span>@shippingCost</span></div>
+                </div>
+                <div class="row mx-0">
+                    <div class="col-6"><span style="font-weight: bold;">Sous-Total</span></div>
+                    <div class="col-6 justify-content-end d-flex"><span style="font-weight: bold;">@subTotal</span></div>
+                </div>
+                <hr id="shopping-cart-index-summary-spacing-line" />
+                <div class="row mx-0 mb-2">
+                    <div class="col-6"><span>Taxes (estimées)</span></div>
+                    <div class="col-6 justify-content-end d-flex"><span>@taxes</span></div>
+                </div>
+                <div class="row mx-0">
+                    <div class="col-6"><span style="font-weight: bold; font-size: 20px;">Total</span></div>
+                    <div class="col-6 justify-content-end d-flex"><span style="font-weight: bold; font-size: 20px;">@Model.Total</span></div>
+                </div>
+                <div class="justify-content-center align-self-end">
+                    @if (Model.Quantity > 0 && ViewBag.AllProductsAreAvailable == true)
+                    {
+                        @if (User!.Identity!.IsAuthenticated)
+                        {
+                            <a id="shopping-cart-index-summary-checkout-button" asp-controller="Checkout" asp-action="Information">
+                                <span class="m-auto">Passer la commande</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a id="shopping-cart-index-summary-checkout-button" data-toggle="modal" data-target="#shopping-cart-checkout-method-modal" style="cursor: pointer">
+                                <span class="m-auto">Passer la commande</span>
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <a id="shopping-cart-index-summary-checkout-button-unavailable">
+                            <span class="m-auto">Passer la commande</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    if (!User!.Identity!.IsAuthenticated && Model.Quantity > 0 && ViewBag.AllProductsAreAvailable == true)
+    {
+        Html.RenderPartial("_CheckoutMethodPartial", new LogInVM());
+    }
+}

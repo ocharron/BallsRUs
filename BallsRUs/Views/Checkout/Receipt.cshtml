@@ -1,0 +1,66 @@
+﻿@using BallsRUs.Models.Checkout
+
+@model CheckoutReceiptVM
+
+@{
+    ViewData["Title"] = "Votre reçu";
+}
+
+<div id="checkout-receipt-container">
+    <h3 id="checkout-receipt-title">Votre reçu</h3>
+    <h5 id="checkout-receipt-subtitle">Votre achat est confirmé!</h5>
+    <div id="checkout-receipt-information-container">
+        <table id="checkout-receipt-user-information-table">
+            <tbody>
+                <tr>
+                    <td class="checkout-receipt-table-left-data">Nom</td>
+                    <td class="checkout-receipt-table-right-data">@Model.OrderFullName</td>
+                </tr>
+                <tr>
+                    <td class="checkout-receipt-table-left-data">Courriel</td>
+                    <td class="checkout-receipt-table-right-data">@Model.OrderEmailAddress</td>
+                </tr>
+                <tr>
+                    <td class="checkout-receipt-table-left-data">Téléphone</td>
+                    <td class="checkout-receipt-table-right-data">@Model.OrderPhoneNumber</td>
+                </tr>
+                <tr>
+                    <td class="checkout-receipt-table-left-data">Numéro Commande</td>
+                    <td class="checkout-receipt-table-right-data">#@Model.OrderNumber</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="checkout-receipt-payment-container">
+        <span id="checkout-receipt-payment-date">Payé le @Model.PaymentDate</span>
+        <div id="checkout-receipt-payment-card">
+            <div class="row">
+                <div class="col-6 d-grid">
+                    <div class="col-12">
+                        <p id="checkout-receipt-payment-card-name">@Model.PaymentFullName</p>
+                        <p id="checkout-receipt-payment-card-digits">
+                            &#x2022;&#x2022;&#x2022;&#x2022; &#x2022;&#x2022;&#x2022;&#x2022; &#x2022;&#x2022;&#x2022;&#x2022; @Model.PaymentLast4
+                        </p>
+                    </div>
+                    <div class="col-12 align-self-end">
+                        <span><span id="checkout-receipt-payment-card-total">Paiement:</span> @Model.OrderTotal</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <span id="checkout-receipt-payment-card-subtitle">Facturation:</span>
+                    <p id="checkout-receipt-payment-card-street" class="m-0">@Model.AddressStreet</p>
+                    <p id="checkout-receipt-payment-card-country" class="m-0">@Model.AddressCity, @Model.AddressStateProvince (@Model.AddressCountry)</p>
+                    <p id="checkout-receipt-payment-card-postal-code" class="m-0">@Model.AddressPostalCode</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (User!.Identity!.IsAuthenticated)
+    {
+        <a asp-controller="Order" asp-action="Details" asp-route-orderId="@Model.Id" id="checkout-receipt-return-button"><span>Retour</span></a>
+    }
+    else
+    {
+        <a asp-controller="Home" asp-action="Index" id="checkout-receipt-return-button"><span>Retour</span></a>
+    }
+</div>

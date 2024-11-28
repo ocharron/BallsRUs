@@ -1,0 +1,105 @@
+﻿@using BallsRUs.Models.Checkout;
+
+@model CheckoutConfirmationVM
+
+@{
+    ViewData["Title"] = "Confirmer votre commande";
+}
+
+<div id="checkout-confirmation-container">
+    @if (Model.OrderAlreadyConfirmed == false)
+    {
+        <h3 id="checkout-confirmation-title">Confirmer la commande</h3>
+        <h4 id="checkout-confirmation-sub-title">#@Model.Number</h4>
+        <div id="checkout-confirmation-information-container">
+            <h5 id="checkout-confirmation-instructions-text">Veuillez vérifier que les information suivantes sont exactes.</h5>
+            <table id="checkout-confirmation-user-information-table">
+                <tbody>
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data">Prénom</td>
+                        <td class="checkout-confirmation-table-right-data">@Model.FirstName</td>
+                    </tr>
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data">Nom</td>
+                        <td class="checkout-confirmation-table-right-data">@Model.LastName</td>
+                    </tr>
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data">Adresse courriel</td>
+                        <td class="checkout-confirmation-table-right-data">@Model.EmailAddress</td>
+                    </tr>
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data">Téléphone</td>
+                        <td class="checkout-confirmation-table-right-data">@Model.PhoneNumber</td>
+                    </tr>
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data">Adresse</td>
+                        <td class="checkout-confirmation-table-right-data">@Model.AddressStreet</td>
+                    </tr>
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data"></td>
+                        <td class="checkout-confirmation-table-right-data">@Model.AddressCity, @Model.AddressStateProvince (@Model.AddressCountry)</td>
+                    </tr>
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data"></td>
+                        <td class="checkout-confirmation-table-right-data">@Model.AddressPostalCode</td>
+                    </tr>
+                    @if (Model.OrderItems is not null && Model.OrderItems.Count > 0)
+                    {
+                        <tr>
+                            <td class="checkout-confirmation-table-left-data">Produits commandés</td>
+                            <td class="checkout-confirmation-table-right-data">@Model.ProductQuantity</td>
+                        </tr>
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <tr>
+                                <td class="checkout-confirmation-table-left-data" style="padding-left:20px; padding-right:10px; font-weight:normal!important; color:#635f5f;">@item.ProductName</td>
+                                <td class="checkout-confirmation-table-right-data">@item.TotalCost</td>
+                            </tr>
+                            <tr>
+                                <td class="checkout-confirmation-table-left-data" style="padding-left:20px;"></td>
+                                <td class="checkout-confirmation-table-right-data">@item.Quantity u.</td>
+                            </tr>
+                        }
+                    }
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data">Total des produits</td>
+                        <td class="checkout-confirmation-table-right-data">@Model.ProductCost</td>
+                    </tr>
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data">Coût de livraison</td>
+                        <td class="checkout-confirmation-table-right-data">@Model.ShippingCost</td>
+                    </tr>
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data">Sous-Total</td>
+                        <td class="checkout-confirmation-table-right-data">@Model.SubTotal</td>
+                    </tr>
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data">Taxes</td>
+                        <td class="checkout-confirmation-table-right-data">@Model.Taxes</td>
+                    </tr>
+                    <tr>
+                        <td class="checkout-confirmation-table-left-data">Total</td>
+                        <td class="checkout-confirmation-table-right-data">@Model.Total</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <form asp-controller="Checkout" asp-action="Confirmation" asp-route-orderId="@Model.Id" id="checkout-confirmation-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input id="checkout-information-confirm-information-checkbox" type="checkbox" asp-for="ConfirmInformation"> Je confirme que mes informations sont exactes
+                <span asp-validation-for="ConfirmInformation" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-4 mb-1 text-start">
+                <input type="submit" value="Confirmer la commande" />
+            </div>
+        </form>
+    }
+    else
+    {
+        <div id="checkout-confirmation-already-confirmed-container">
+            <h3 id="checkout-confirmation-title">Aucune commande à confirmer</h3>
+            <h5 id="checkout-confirmation-instructions-text">La commande que vous voulez atteindre est déjà confirmée.</h5>
+        </div>
+    }
+</div>

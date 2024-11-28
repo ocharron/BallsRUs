@@ -1,0 +1,94 @@
+﻿@using BallsRUs.Models.Product
+
+@model ProductDetailsVM
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div id="product-details-container">
+    @if (ViewBag.IsMessage)
+    {
+        <div id="product-details-custom-message-summary">
+            <div asp-validation-summary="ModelOnly" class=""></div>
+        </div>
+    }
+    else
+    {
+        <div id="product-details-custom-validation-summary">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        </div>
+    }
+    <div id="product-details-specs-container" class="row pb-5">
+        <div class="col-12 col-sm-7 justify-content-center">
+            <img id="product-details-specs-image" title="@Html.Raw(Model.Brand) @Html.Raw(Model.Model)" src="@Url.Content(Model.ImagePath)" />
+        </div>
+        <div class="col-12 col-sm-5 mx-5 mx-sm-0">
+            <a id="product-details-specs-brand-link" asp-controller="Product" asp-action="Catalog" asp-route-search="@Model.Brand"><p id="product-details-specs-brand">@Model.Brand</p></a>
+            <p id="product-details-specs-name">@Model.Name</p>
+            @if (Model.DiscountedPrice == string.Empty)
+            {
+                <p id="product-details-specs-price">@Model.RetailPrice</p>
+            }
+            else
+            {
+                <p id="product-details-specs-price"><span id="product-details-specs-price-discounted">@Model.RetailPrice</span> @Model.DiscountedPrice</p>
+            }
+            <p id="product-details-specs-sku">SKU @Model.SKU</p>
+            @if (Model.Quantity <= 5 && Model.Quantity >= 1)
+            {
+                <p id="product-details-specs-low-stock-text">Seulement @Model.Quantity restant en stock.</p>
+            }
+            else if (Model.Quantity == 0)
+            {
+                <p id="product-details-specs-low-stock-text">Actuellement indisponible.</p>
+            }
+            @if (Model.Quantity > 0)
+            {
+                <a id="product-details-add-cart-button" asp-controller="ShoppingCart" asp-action="AddProductToCart" asp-route-productId="@Model.Id">
+                    <span class="m-auto">Ajouter au panier</span>
+                </a>
+            }
+            else
+            {
+                <a id="product-details-add-cart-button-unavailable">
+                    <span class="m-auto">Ajouter au panier</span>
+                </a>
+            }
+        </div>
+    </div>
+    <div id="product-details-info-container" class="row border">
+        <div class="col-12 col-lg-6 pe-lg-5 mb-5 mb-lg-0">
+            <p id="product-details-info-title">@Model.ShortDescription</p>
+            <p id="product-details-info-full-desc">@Model.FullDescription</p>
+        </div>
+        <div class="col-12 col-lg-6 ps-lg-5">
+            <p id="product-details-info-title">Fiche technique</p>
+            <table id="product-details-info-table" class="table">
+                <tr>
+                    <td class="product-details-info-table-title">Marque</td>
+                    <td>@Model.Brand</td>
+                </tr>
+                <tr>
+                    <td class="product-details-info-table-title">Modèle</td>
+                    <td>@Model.Model</td>
+                </tr>
+                <tr>
+                    <td class="product-details-info-table-title">SKU</td>
+                    <td>@Model.SKU</td>
+                </tr>
+                @if (Model.WeightInGrams is not null)
+                {
+                    <tr>
+                        <td class="product-details-info-table-title">Poids</td>
+                        <td>@Model.WeightInGrams grammes</td>
+                    </tr>
+                }
+                <tr>
+                    <td class="product-details-info-table-title">Mise en ligne</td>
+                    <td>@Model.PublicationDate</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

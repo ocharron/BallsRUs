@@ -1,0 +1,108 @@
+﻿@model BallsRUs.Models.Account.RegisterVM
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="text-center">
+    <div class="account-register-container col-md-8">
+        <h1 id="account-register-title">Créer un compte</h1>
+        <div class="row" style="margin-top:60px">
+            <form asp-action="Register" asp-route-returnUrl="@ViewBag.ReturnUrl" class="account-register-form">
+                <div class="col-12">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group mb-4">
+                        <input asp-for="FirstName" class="form-control" placeholder="Prénom" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input asp-for="LastName" class="form-control" placeholder="Nom" />
+                        <span asp-validation-for="LastName" class=" text-danger"></span>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input asp-for="UserName" class="form-control" placeholder="Courriel" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input asp-for="PhoneNumber" class="form-control" placeholder="Téléphone" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input asp-for="Password" class="form-control" placeholder="Mot de passe" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input asp-for="PasswordConfirmation" class="form-control" placeholder="Confirmation mot de passe" />
+                        <span asp-validation-for="PasswordConfirmation" class="text-danger"></span>
+                    </div>
+                    <div id="addAddress" style="display:none">
+                        <h3 style="margin-top:45px; color: forestgreen;">Adresse</h3>
+                        <div class="form-group mb-4">
+                            <input asp-for="Street" class="form-control" placeholder="Numéro civique et rue" />
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-4">
+                            <input asp-for="City" class="form-control" placeholder="Ville" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-4">
+                            <input asp-for="PostalCode" class="form-control" placeholder="Code postale" />
+                            <span asp-validation-for="PostalCode" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-4">
+                            <input asp-for="Country" class="form-control" placeholder="Pays" />
+                            <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-4">
+                            <input asp-for="StateProvince" class="form-control" placeholder="Province ou état" />
+                            <span asp-validation-for="StateProvince" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <input id="account-register-checkbox" type="checkbox" onchange="toggleAdress()" asp-for="addAddress">
+                        Ajouter une adresse
+                    </div>
+                    <div class="form-group mt-4 mb-1 text-start">
+                        <input type="submit" value="Créer un compte" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function toggleAdress() {
+            var div = document.getElementById("addAddress");
+            if (document.getElementById("account-register-checkbox").checked) {
+                div.style.display = "block";
+            } else {
+                div.style.display = "none";
+            }
+        }
+
+        $(document).ready(function () {
+            function toggleAddressFields() {
+                const addressFields = $("#addAddress");
+                const existingDriverCheckbox = $('#account-register-checkbox');
+                if (existingDriverCheckbox.prop('checked')) {
+                    addressFields.show();
+                } else {
+                    addressFields.hide();
+                }
+            }
+
+            toggleAddressFields();
+
+            $('#existingDriverCheckbox').change(function () {
+                toggleAddressFields();
+            });
+        });
+
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

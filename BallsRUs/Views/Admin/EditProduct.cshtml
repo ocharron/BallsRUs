@@ -1,0 +1,114 @@
+﻿@using BallsRUs.Models.Admin
+
+@model AdminEditProductVM
+
+@{
+    ViewData["Title"] = "ADMIN: Modifier " + Model.Name;
+}
+
+<h1 class="mt-4">Modifier un produit:</h1>
+<h3 class="mb-4">@Model.Name</h3>
+
+<div class="mt-2 mb-2">
+    @Html.ActionLink("Retour", "DetailsProduct", new { id = @ViewBag.Id }, new { @class = "btn btn-secondary" })
+</div>
+
+<form asp-action="EditProduct" asp-route-id="@ViewBag.Id" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SKU" class="control-label required"></label>
+                <input asp-for="SKU" class="form-control" />
+                <span asp-validation-for="SKU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label required"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Brand" class="control-label required"></label>
+                <input asp-for="Brand" class="form-control" />
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model" class="control-label required"></label>
+                <input asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="form-check-label form-check m-2">
+                    <input id="admin-edit-product-image-checkbox" class="form-check-input" asp-for="ModifyImage" /> @Html.DisplayNameFor(model => model.ModifyImage)
+                </label>
+                <span asp-validation-for="ModifyImage" class="text-danger"></span>
+            </div>
+            <div id="admin-edit-product-image-form-group" class="form-group">
+                <label asp-for="Image" class="control-label required"></label>
+                <input type="file" asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortDescription" class="control-label required"></label>
+                <textarea asp-for="ShortDescription" class="form-control"></textarea>
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullDescription" class="control-label required"></label>
+                <textarea asp-for="FullDescription" class="form-control"></textarea>
+                <span asp-validation-for="FullDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeightInGrams" class="control-label required"></label>
+                <input asp-for="WeightInGrams" class="form-control" />
+                <span asp-validation-for="WeightInGrams" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label required"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Size" class="control-label required"></label>
+                <input asp-for="Size" class="form-control" />
+                <span asp-validation-for="Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RetailPrice" class="control-label required"></label>
+                <input asp-for="RetailPrice" class="form-control" />
+                <span asp-validation-for="RetailPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountedPrice" class="control-label required"></label>
+                <input asp-for="DiscountedPrice" class="form-control" />
+                <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2 mb-2">
+                <input type="submit" value="Modifier" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        function toggleImageInput() {
+            var modifyImageCheckbox = document.getElementById("admin-edit-product-image-checkbox");
+            var imageInput = document.getElementById("admin-edit-product-image-form-group");
+
+            if (modifyImageCheckbox.checked) {
+                imageInput.style.display = "block";
+            } else {
+                imageInput.style.display = "none";
+            }
+        }
+
+        var modifyImageCheckbox = document.getElementById("admin-edit-product-image-checkbox");
+        modifyImageCheckbox.addEventListener("change", toggleImageInput);
+
+        toggleImageInput();
+    </script>
+
+}

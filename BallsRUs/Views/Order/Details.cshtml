@@ -1,0 +1,91 @@
+﻿@using BallsRUs.Models.Order
+
+@model OrderDetailsVM
+
+@{
+    ViewData["Title"] = "Commande #" + Model.Number;
+}
+
+<div id="order-details-container">
+    <h3 id="order-details-title">Détails de la Commande</h3>
+    <h4 id="order-details-subtitle">#@Model.Number</h4>
+    <table id="order-details-information-table">
+        <tbody>
+            <tr>
+                <td class="order-details-information-table-left-data">Prénom</td>
+                <td class="order-details-information-table-right-data">@Model.FirstName</td>
+            </tr>
+            <tr>
+                <td class="order-details-information-table-left-data">Nom</td>
+                <td class="checkout-confirmation-table-right-data">@Model.LastName</td>
+            </tr>
+            <tr>
+                <td class="order-details-information-table-left-data">Adresse courriel</td>
+                <td class="checkout-confirmation-table-right-data">@Model.EmailAddress</td>
+            </tr>
+            <tr>
+                <td class="order-details-information-table-left-data">Téléphone</td>
+                <td class="checkout-confirmation-table-right-data">@Model.PhoneNumber</td>
+            </tr>
+            <tr>
+                <td class="order-details-information-table-left-data">Adresse</td>
+                <td class="checkout-confirmation-table-right-data">@Model.AddressStreet</td>
+            </tr>
+            <tr>
+                <td class="order-details-information-table-left-data"></td>
+                <td class="checkout-confirmation-table-right-data">@Model.AddressCity, @Model.AddressStateProvince (@Model.AddressCountry)</td>
+            </tr>
+            <tr>
+                <td class="order-details-information-table-left-data"></td>
+                <td class="checkout-confirmation-table-right-data">@Model.AddressPostalCode</td>
+            </tr>
+            @if (Model.OrderItems is not null && Model.OrderItems.Count > 0)
+            {
+                <tr>
+                    <td class="order-details-information-table-left-data">Produits commandés</td>
+                    <td class="checkout-confirmation-table-right-data">@Model.ProductQuantity</td>
+                </tr>
+                @foreach (var item in Model.OrderItems)
+                {
+                    <tr>
+                        <td class="order-details-information-table-left-data" style="padding-left:20px; padding-right:10px; font-weight:normal!important; color:#635f5f;">@item.ProductName</td>
+                        <td class="checkout-confirmation-table-right-data">@item.TotalCost</td>
+                    </tr>
+                    <tr>
+                        <td class="order-details-information-table-left-data" style="padding-left:20px;"></td>
+                        <td class="checkout-confirmation-table-right-data">@item.Quantity u.</td>
+                    </tr>
+                }
+            }
+            <tr>
+                <td class="order-details-information-table-left-data">Total des produits</td>
+                <td class="checkout-confirmation-table-right-data">@Model.ProductsCost</td>
+            </tr>
+            <tr>
+                <td class="order-details-information-table-left-data">Coût de livraison</td>
+                <td class="checkout-confirmation-table-right-data">@Model.ShippingCost</td>
+            </tr>
+            <tr>
+                <td class="order-details-information-table-left-data">Sous-Total</td>
+                <td class="checkout-confirmation-table-right-data">@Model.SubTotal</td>
+            </tr>
+            <tr>
+                <td class="order-details-information-table-left-data">Taxes</td>
+                <td class="checkout-confirmation-table-right-data">@Model.Taxes</td>
+            </tr>
+            <tr>
+                <td class="order-details-information-table-left-data">Total</td>
+                <td class="checkout-confirmation-table-right-data">@Model.Total</td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="order-details-buttons-container" class="row">
+        @Html.ActionLink("Retour", "OrdersHistory", "Account", new { }, new { @id = "order-details-back-button", @class = "order-details-button" })
+        @Html.ActionLink("Annuler ma commande", "CancelOrder", "Order", new { OrderId = Model.Id }, new { @id = "order-details-cancel-order-button", @class = "order-details-button" })
+        @if (Model.IsPayed)
+        {
+            @Html.ActionLink("Voir le reçu", "Receipt", "Checkout", new { orderId = Model.Id }, new { @id = "order-details-receipt-button", @class = "order-details-button" })
+        }
+    </div>
+</div>
+

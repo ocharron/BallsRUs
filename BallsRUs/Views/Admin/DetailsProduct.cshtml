@@ -1,0 +1,117 @@
+﻿@using BallsRUs.Models.Admin
+
+@model AdminDetailsProductVM
+
+@{
+    ViewData["Title"] = "ADMIN: Détails " + Model.Name;
+}
+
+<h1 class="px-5 px-md-0 mt-5">Détails du produit</h1>
+
+<div class="mt-2 mb-2 px-5 px-md-0">
+    @Html.ActionLink("Retour", "ManageProduct", new { }, new { @class = "btn btn-secondary" })
+    @Html.ActionLink("Modifier", "EditProduct", new { id = Model.Id }, new { @class = "btn btn-warning" })
+</div>
+
+<div class="row m-0">
+    <div class="col-12 col-md-6 px-5 px-md-0 mb-5 mb-md-0 mx-0">
+        <img class="w-100 h-auto" src="@Url.Content(Model.ImagePath)" />
+    </div>
+    <div class="col-12 col-md-6 ps-5 px-md-0 mx-0 btn-">
+        <table class="table mb-2" style="font-size: 18px">
+            <tbody>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.Id):</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.Id)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.SKU):</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.SKU)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.Name):</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.Name)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.Brand):</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.Brand)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.Model):</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.Model)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.Category):</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.Category)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.WeightInGrams):</td>
+                    @if (Model.WeightInGrams is not null)
+                    {
+                        <td>@Html.DisplayFor(modelItem => modelItem.WeightInGrams)</td>
+                    }
+                    else
+                    {
+                        <td>N/A</td>
+                    }
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.Size):</td>
+                    @if (string.IsNullOrWhiteSpace(Model.Size))
+                    {
+                        <td>@Html.DisplayFor(modelItem => modelItem.Size)</td>
+                    }
+                    else
+                    {
+                        <td>N/A</td>
+                    }
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.Quantity):</td>
+                    @if (Model.Quantity > 5)
+                    {
+                        <td>@Html.DisplayFor(modelItem => modelItem.Quantity)</td>
+                    }
+                    else
+                    {
+                        <td style="color: red;">@Html.DisplayFor(modelItem => modelItem.Quantity)</td>
+                    }
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.RetailPrice):</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.RetailPrice)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.DiscountedPrice):</td>
+                    @if (!string.IsNullOrWhiteSpace(Model.DiscountedPrice))
+                    {
+                        <td>@Html.DisplayFor(modelItem => modelItem.DiscountedPrice)</td>
+                    }
+                    else
+                    {
+                        <td>Pas en rabais</td>
+                    }
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.PublicationDate):</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.PublicationDate)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.LastUpdated):</td>
+                    <td>@Html.DisplayFor(modelItem => modelItem.LastUpdated)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold">@Html.DisplayNameFor(model => model.IsArchived):</td>
+                    @if (Model.IsArchived)
+                    {
+                        <td>Oui</td>
+                    }
+                    else
+                    {
+                        <td>Non</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
