@@ -24,8 +24,8 @@ To install and run Balls R Us on your local machine, please follow these steps:
 
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Visual Studio](https://visualstudio.microsoft.com/downloads/) or a text editor of your choice (Visual Studio Code, etc.)
-- Microsoft SQL Server 2022 (or later version)
-- Stripe API Key
+- [Microsoft SQL Server 2022](https://www.microsoft.com/en-ca/sql-server/sql-server-downloads) (or later version)
+- [Stripe](https://stripe.com/en-ca) API Key
 
 ### Instructions
 
@@ -58,11 +58,11 @@ To install and run Balls R Us on your local machine, please follow these steps:
 
 ## Key Features
 
-1. **Product Catalog**: Browse through a wide range of golf equipment, including clubs, balls, bags, shoes, etc.
-2. **Shopping Cart Management**: Add products to your cart and manage them easily before proceeding to checkout.
-3. **Secure Payment**: Use Stripe for safe and secure payment transactions.
-4. **User Management**: Register, login, and manage your user profile for a personalized experience.
-5. **Content management system (CMS)**: Manage the catalog, the products and the users from your own content management system.
+1. **Content management system (CMS)**: Manage the catalog and the products from a tailor-made content management system.
+2. **Product Catalog**: Browse through a wide range of golf equipment, including clubs, balls, bags, shoes, etc.
+3. **Shopping Cart Management**: Add products to your cart and manage them easily before proceeding to checkout.
+4. **Secure Payment**: Use Stripe for safe and secure payment transactions.
+5. **User Management**: Register, login, and manage your user profile for a personalized experience.
 
 ---
 

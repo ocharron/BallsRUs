@@ -24,8 +24,8 @@ Pour installer et exécuter Balls R Us sur votre machine locale, veuillez suivre
 
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Visual Studio](https://visualstudio.microsoft.com/downloads/) ou un éditeur de texte de votre choix (Visual Studio Code, etc.)
-- Microsoft SQL Server 2022 (ou version ultérieure)
-- Clé d'API Stripe
+- [Microsoft SQL Server 2022](https://www.microsoft.com/fr-ca/sql-server/sql-server-downloads) (ou version ultérieure)
+- Clé d'API [Stripe](https://stripe.com/fr-ca)
 
 ### Instructions
 
@@ -58,11 +58,11 @@ Pour installer et exécuter Balls R Us sur votre machine locale, veuillez suivre
 
 ## Fonctionnalités Principales
 
-1. **Catalogue de Produits**: Parcourez une large gamme d'équipements de golf, y compris des clubs, des balles, des sacs, des chaussures, etc.
-2. **Gestion du Panier**: Ajoutez des produits à votre panier et gérez-les facilement avant de passer à la caisse.
-3. **Paiement Sécurisé**: Utilisation de Stripe pour des transactions de paiement sûres et sécurisées.
-4. **Gestion des Utilisateurs**: Enregistrez-vous, connectez-vous et gérez votre profil utilisateur pour une expérience personnalisée.
-5. **Système de gestion de contenu**: Gérer tout le catalogue, les produits et les utilisateurs à partir d'un système de gestion de contenu.
+1. **Système de gestion de contenu**: Gérer tout le catalogue et les produits à partir d'un système de gestion de contenu fait sur mesure.
+2. **Catalogue de Produits**: Parcourez une large gamme d'équipements de golf, y compris des clubs, des balles, des sacs, des chaussures, etc.
+3. **Gestion du Panier**: Ajoutez des produits à votre panier et gérez-les facilement avant de passer à la caisse.
+4. **Paiement Sécurisé**: Utilisation de Stripe pour des transactions de paiement sûres et sécurisées.
+5. **Gestion des Utilisateurs**: Enregistrez-vous, connectez-vous et gérez votre profil utilisateur pour une expérience personnalisée.
 
 ---
 
