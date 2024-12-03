@@ -39,10 +39,6 @@ namespace BallsRUs
             {
                 pipeline.AddCssBundle("/css/bundle-ballsrus.css", "css/*.css");
             });
-            //if (builder.Environment.IsDevelopment())
-            //{
-            //    builder.Services.AddWebOptimizer(minifyJavaScript: false, minifyCss: false);
-            //}
 
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
