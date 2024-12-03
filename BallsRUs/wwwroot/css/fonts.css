@@ -6,6 +6,7 @@
     font-weight: normal;
     font-style: normal;
 }
+
 /* POPPINS SEMI-BOLD */
 @font-face {
     font-family: 'Poppins';
@@ -14,6 +15,7 @@
     font-weight: bold;
     font-style: normal;
 }
+
 /* POPPINS BOLD */
 @font-face {
     font-family: 'Poppins';
@@ -22,6 +24,7 @@
     font-weight: bolder;
     font-style: normal;
 }
+
 /* POPPINS LIGHT */
 @font-face {
     font-family: 'Poppins';
@@ -30,6 +33,7 @@
     font-weight: lighter;
     font-style: normal;
 }
+
 /* POPPINS REGULAR ITALIC */
 @font-face {
     font-family: 'Poppins';
@@ -38,6 +42,7 @@
     font-weight: normal;
     font-style: italic;
 }
+
 /* POPPINS BOLD ITALIC */
 @font-face {
     font-family: 'Poppins';

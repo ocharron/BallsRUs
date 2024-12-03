@@ -24,7 +24,7 @@
         public const string RELEASE_NEW_TO_OLD = "new-to-old";
 
         // Pour les ViewModels
-        public const int PRODUCT_MIN_NAME_LENGTH = 5;
+        public const int PRODUCT_MIN_NAME_LENGTH = 3;
         public const int PRODUCT_MAX_NAME_LENGTH = 100;
         public const int PRODUCT_MIN_SHORT_DESC_LENGTH = 20;
         public const int PRODUCT_MAX_SHORT_DESC_LENGTH = 200;

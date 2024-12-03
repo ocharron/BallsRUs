@@ -1,0 +1,66 @@
+﻿#order-details-container {
+    margin-top: 50px;
+    margin-bottom: 150px;
+}
+
+#order-details-title {
+    font-family: 'Poppins';
+    font-weight: bold;
+    width: fit-content;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#order-details-subtitle {
+    font-family: 'Poppins';
+    width: fit-content;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#order-details-information-table {
+    width: max(50%, 375px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.order-details-information-table-left-data {
+    font-weight: bold;
+}
+
+#order-details-buttons-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.order-details-button {
+    background-color: forestgreen;
+    border: none;
+    color: white;
+    width: 200px;
+    height: 35px;
+    display: block;
+    text-align: center;
+    align-content: center;
+    display: grid;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 50px;
+}
+    .order-details-button:hover {
+        filter: brightness(1.10);
+        color: white;
+        text-decoration: none;
+    }
+
+#order-details-back-button {
+    background-color: #6c757d;
+}
+
+#order-details-cancel-order-button {
+    background-color: #ad0202;
+}

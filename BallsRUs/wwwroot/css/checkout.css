@@ -1,0 +1,302 @@
+﻿#checkout-information-container {
+    width: max(350px, 40%);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#checkout-information-title {
+    font-family: 'Poppins';
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#checkout-information-existing-address-container {
+    margin-top: 45px;
+}
+    #checkout-information-existing-address-container p {
+        font-weight: bold;
+    }
+
+#checkout-information-existing-address-info {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 45px;
+}
+
+.checkout-information-checkbox {
+    -webkit-appearance: none;
+    background-color: white;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 7px;
+    width: 15px;
+    height: 15px;
+    border-radius: 0px;
+}
+    .checkout-information-checkbox:checked {
+        background-color: forestgreen;
+        background-image: url("/img/crochet.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+#checkout-confirmation-container {
+    justify-content: center;
+}
+
+#checkout-confirmation-title {
+    font-family: 'Poppins';
+    width: fit-content;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#checkout-confirmation-sub-title {
+    width: fit-content;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#checkout-confirmation-information-container {
+    width: max(70%, 350px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#checkout-confirmation-instructions-text {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+}
+
+#checkout-confirmation-user-information-table {
+    width: max(50%, 375px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#checkout-confirmation-order-summary-table {
+    width: max(50%, 375px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.checkout-confirmation-table-left-data {
+    font-weight: bold;
+}
+
+#checkout-confirmation-form {
+    width: max(70%, 350px);
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+    #checkout-confirmation-form .form-group {
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+#checkout-information-confirm-information-checkbox {
+    -webkit-appearance: none;
+    background-color: white;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 7px;
+    width: 15px;
+    height: 15px;
+    border-radius: 0px;
+}
+    #checkout-information-confirm-information-checkbox:checked {
+        background-color: forestgreen;
+        background-image: url("/img/crochet.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+#checkout-payment-container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 75px;
+    width: max(50%, 375px);
+}
+
+#checkout-payment-title {
+    font-family: 'Poppins';
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.checkout-payment-form-label {
+    font-weight: bold;
+    font-family: 'Poppins';
+}
+
+#checkout-payment-credit-card-input {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid black;
+    margin-bottom: 1px;
+    padding-bottom: 0px !important;
+}
+
+#checkout-payment-address-title {
+    width: fit-content;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#checkout-payment-terms-checkbox {
+    -webkit-appearance: none;
+    background-color: white;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 7px;
+    border-radius: 0px;
+}
+    #checkout-payment-terms-checkbox:checked {
+        background-color: forestgreen;
+        background-image: url("/img/crochet.svg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+#checkout-payment-tos-link {
+    color: forestgreen;
+    font-weight: bold;
+}
+
+#checkout-payment-submit-button {
+    background-color: forestgreen;
+    border: none;
+    color: white;
+    width: 200px;
+    height: 35px;
+    display: block;
+    justify-self: center;
+    margin: auto;
+    margin-top: 10px;
+}
+    #checkout-payment-submit-button:hover {
+        filter: brightness(1.10);
+    }
+
+#checkout-payment-already-confirmed-container {
+    margin-bottom: 600px;
+}
+
+#checkout-payment-instructions-text {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+}
+
+#checkout-receipt-title {
+    font-family: 'Poppins';
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+#checkout-receipt-subtitle {
+    font-family: 'Poppins';
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+#checkout-receipt-information-container {
+    width: max(40%, 375px);
+    font-family: 'Poppins';
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: center;
+    display: grid;
+}
+
+.checkout-receipt-table-left-data {
+    font-weight: bold;
+}
+
+.checkout-receipt-table-right-data {
+    text-align: right;
+}
+
+#checkout-receipt-payment-container {
+    width: max(40%, 375px);
+    font-family: 'Poppins';
+    margin-top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: center;
+    display: grid;
+}
+
+#checkout-receipt-payment-date {
+    margin-left: 16px;
+    color: grey;
+}
+
+#checkout-receipt-payment-card-subtitle, #checkout-receipt-payment-card-total {
+    font-weight: bold;
+}
+
+#checkout-receipt-payment-card-name {
+    font-weight: bold;
+    margin: 0;
+}
+
+#checkout-receipt-payment-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 5px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 45px;
+}
+
+#checkout-receipt-return-button {
+    background-color: forestgreen;
+    border: none;
+    color: white;
+    width: 200px;
+    height: 35px;
+    display: block;
+    text-align: center;
+    align-content: center;
+    display: grid;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+    #checkout-receipt-return-button:hover {
+        filter: brightness(1.10);
+        text-decoration: none;
+    }

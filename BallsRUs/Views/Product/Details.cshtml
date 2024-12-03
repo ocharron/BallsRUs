@@ -21,7 +21,7 @@
     }
     <div id="product-details-specs-container" class="row pb-5">
         <div class="col-12 col-sm-7 justify-content-center">
-            <img id="product-details-specs-image" title="@Html.Raw(Model.Brand) @Html.Raw(Model.Model)" src="@Url.Content(Model.ImagePath)" />
+            <img id="product-details-specs-image" title="@Html.Raw(Model.Brand) @Html.Raw(Model.Model)" src="@Url.Content(Model.ImagePath)" loading="lazy" />
         </div>
         <div class="col-12 col-sm-5 mx-5 mx-sm-0">
             <a id="product-details-specs-brand-link" asp-controller="Product" asp-action="Catalog" asp-route-search="@Model.Brand"><p id="product-details-specs-brand">@Model.Brand</p></a>

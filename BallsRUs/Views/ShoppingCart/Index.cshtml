@@ -33,7 +33,7 @@
                         <div class="shopping-cart-index-products-card row">
                             <div class="col-3">
                                 <a asp-controller="Product" asp-action="Details" asp-route-productId="@item.ProductId">
-                                    <img id="shopping-cart-index-products-card-image" title="@Html.Raw(item.Name)" src="@Url.Content(item.ImagePath)" style="@Html.Raw(filterIsAvailable)" />
+                                    <img id="shopping-cart-index-products-card-image" title="@Html.Raw(item.Name)" src="@Url.Content(item.ImagePath)" style="@Html.Raw(filterIsAvailable)" loading="lazy" />
                                 </a>
                             </div>
                             <div class="col-9 py-3 d-grid">

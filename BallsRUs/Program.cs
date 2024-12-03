@@ -35,6 +35,15 @@ namespace BallsRUs
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddWebOptimizer(pipeline =>
+            {
+                pipeline.AddCssBundle("/css/bundle-ballsrus.css", "css/*.css");
+            });
+            //if (builder.Environment.IsDevelopment())
+            //{
+            //    builder.Services.AddWebOptimizer(minifyJavaScript: false, minifyCss: false);
+            //}
+
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddIdentity<User, IdentityRole<Guid>>().AddEntityFrameworkStores<ApplicationDbContext>().AddSignInManager().AddDefaultTokenProviders();
@@ -55,6 +64,8 @@ namespace BallsRUs
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseWebOptimizer();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

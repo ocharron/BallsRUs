@@ -1,0 +1,180 @@
+﻿.shopping-cart-index-title {
+    font-weight: bold;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.shopping-cart-index-products-card {
+    height: min(max(9.115vw, 100px), 175px);
+    width: 95%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+#shopping-cart-index-products-card-image {
+    width: auto;
+    height: max(9.115vw, 100px);
+}
+
+.shopping-cart-index-empty-text {
+    width: fit-content;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    justify-self: center;
+}
+    .shopping-cart-index-empty-text a {
+        color: forestgreen;
+        text-decoration: none;
+    }
+        .shopping-cart-index-empty-text a:hover {
+            color: forestgreen;
+            text-decoration: underline;
+        }
+
+.shopping-cart-index-products-card-title-link {
+    text-decoration: none;
+    color: black;
+    width: fit-content;
+    display: flex;
+}
+    .shopping-cart-index-products-card-title-link:hover {
+        text-decoration: none;
+        color: black;
+    }
+
+.shopping-cart-index-products-card-action-link {
+    text-decoration: none;
+    color: dimgrey;
+    font-style: italic;
+}
+    .shopping-cart-index-products-card-action-link:hover {
+        text-decoration: underline;
+        color: dimgrey;
+    }
+
+.shopping-cart-index-products-card-price-discounted {
+    color: #bd0b11;
+    text-decoration: line-through;
+}
+
+.shopping-cart-index-products-quantity-icon {
+    width: 16px;
+    height: 16px;
+    margin-bottom: 6px;
+}
+
+#shopping-cart-index-summary-card {
+    height: 400px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 12px;
+    padding-right: 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#shopping-cart-index-summary-spacing-line {
+    height: 0;
+    background-color: black;
+}
+
+#shopping-cart-index-summary-checkout-button {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    background-color: forestgreen;
+    border: none;
+    color: white;
+    width: 100%;
+    height: 45px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+    #shopping-cart-index-summary-checkout-button:hover {
+        text-decoration: none;
+        filter: brightness(1.10);
+    }
+
+#shopping-cart-index-summary-checkout-button-unavailable {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    background-color: darkgrey;
+    border: none;
+    color: white;
+    width: 100%;
+    height: 45px;
+    padding-left: 25px;
+    padding-right: 25px;
+    pointer-events: none;
+}
+
+#shopping-cart-custom-validation-summary ul {
+    margin-top: 30px;
+    list-style-type: none;
+    padding: 15px;
+    text-align: left;
+    font-size: 14px;
+    color: black;
+    background-color: #ffe3e0;
+    border: 1px solid #ffcdcc;
+}
+
+#shopping-cart-checkout-method-modal-container {
+    margin-top: 200px;
+    border-radius: 0px;
+    border: none;
+}
+
+#shopping-cart-checkout-method-modal-header-close-button {
+    border: none;
+    background-color: transparent;
+    height: fit-content;
+    width: fit-content;
+}
+
+#shopping-cart-checkout-method-modal-header-close-image {
+    height: 25px;
+    width: auto;
+    transform: rotate(45deg);
+}
+
+#shopping-cart-checkout-method-modal-body-title {
+    color: forestgreen;
+    width: fit-content;
+}
+
+.shopping-cart-checkout-method-modal-link {
+    height: fit-content;
+    color: forestgreen;
+}
+    .shopping-cart-checkout-method-modal-link:hover {
+        color: forestgreen;
+    }
+
+#shopping-cart-checkout-method-modal-register-link {
+    width: fit-content;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#shopping-cart-checkout-method-modal-footer {
+    justify-content: start;
+    align-content: center;
+}
+
+#shopping-cart-checkout-method-modal-cancel-button {
+    border: none;
+    background-color: #6c757d;
+    color: white;
+    width: 90px;
+    height: 35px;
+}
+    #shopping-cart-checkout-method-modal-cancel-button:hover {
+        filter: brightness(1.10);
+    }
